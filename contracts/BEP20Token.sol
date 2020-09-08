@@ -352,7 +352,7 @@ contract BEP20Token is Context, IBEP20, Ownable {
     _name = "TEST Token";
     _symbol = "SWINGBY-888";
     _decimals = 18;
-    _totalSupply = 100000000000;
+    _totalSupply = 1000000000;
     _balances[msg.sender] = _totalSupply;
 
     emit Transfer(address(0), msg.sender, _totalSupply);
