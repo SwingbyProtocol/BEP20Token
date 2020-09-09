@@ -1,0 +1,26 @@
+{
+  "name": "bep20token",
+  "version": "1.0.0",
+  "description": "## Requrements - truffle v5.1.43 (Solidity v0.5.16 (solc-js), Node v14.8.0, Web3.js v1.2.1) - ganache test rpc.",
+  "main": "truffle-config.js",
+  "directories": {
+    "test": "test"
+  },
+  "dependencies": {
+    "@truffle/hdwallet-provider": "^1.0.43"
+  },
+  "devDependencies": {},
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SwingbyProtocol/BEP20Token.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SwingbyProtocol/BEP20Token/issues"
+  },
+  "homepage": "https://github.com/SwingbyProtocol/BEP20Token#readme"
+}

@@ -9,6 +9,6 @@
 $ npm install 
 ```
 ```
-$ truffle migrate --network {development/goerli}
+$ SEED=<your seed phrase> truffle migrate --network {development/bsc_testnet}
 ```
 
