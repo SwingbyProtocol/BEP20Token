@@ -1,5 +1,5 @@
-const BEP20 = artifacts.require("BEP20Token");
+const Token = artifacts.require("Token");
 
 module.exports = function (deployer) {
-  deployer.deploy(BEP20);
+  deployer.deploy(Token);
 };
