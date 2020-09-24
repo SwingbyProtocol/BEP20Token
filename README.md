@@ -11,4 +11,7 @@ $ npm install
 ```
 $ SEED=<your seed phrase> truffle migrate --network {development/bsc_testnet}
 ```
-
+## Test
+```
+$ truffle test
+```

@@ -15,7 +15,7 @@ contract('Token', async (accounts) => {
 
         let balanceTo = await token.balanceOf(to);
 
-        let transfer = await token.transfer(to, amount, {
+        await token.transfer(to, amount, {
             from: from
         });
 
