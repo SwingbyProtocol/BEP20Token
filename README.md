@@ -14,8 +14,7 @@ $ npm install
 $ SEED=<your seed phrase> truffle migrate --network {development/bsc_testnet}
 ```
 ## Binding BEP20 token to BEP-2 token (for bsc_testnet)
-[token-bind-tool](https://github.com/binance-chain/token-bind-tool#bind-bep2-token-with-bep20-token)
-Please have a look this instuction and make sure all of requrements for binding before starting the process. 
+Please have a look this [instuction](https://github.com/binance-chain/token-bind-tool#bind-bep2-token-with-bep20-token) and make sure all of requrements for binding before starting the process. 
 
 ### Step 1. Import your key to bnbcli
 ```
@@ -25,7 +24,13 @@ $ tbnbcli keys add owner --recover
 ```
 $ tbnbcli token issue --symbol TEST-999 --token-name "TEST token" --mintable --total-supply 10000000000000000 --from owner --chain-id Binance-Chain-Ganges --node http://data-seed-pre-0-s3.binance.org:80
 ```
-### Step 3. BEP-20 token issue (see above, symbol should be same)
+### Step 3. BEP-20 token issue 
+See the above command.
+You have to check the following things before deploy BEP-20 token.
+- token symbol should have to same (without prefix)
+- total supply should be same as BEP-2 token supply
+- It may be better for tokens to disable the `mint` fucntion.
+
 ### Step 4. Make a binding tx for BC 
 ```
 $ tbnbcli bridge bind --symbol TEST-999 --amount 6000000000000000 --expire-time <expiry time> --contract-decimals 18 --from owner --chain-id Binance-Chain-Ganges --contract-address <your token contract address> --node http://data-seed-pre-0-s3.binance.org:80
