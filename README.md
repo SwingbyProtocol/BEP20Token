@@ -14,6 +14,8 @@ $ npm install
 $ SEED=<your seed phrase> truffle migrate --network {development/bsc_testnet}
 ```
 ## Binding BEP20 token to BEP-2 token (for bsc_testnet)
+Please have a look this instuction and make sure all of requrements for binding before starting the process. [token-bind-tool](https://github.com/binance-chain/token-bind-tool#bind-bep2-token-with-bep20-token)
+
 ### Step 1. Import your key to bnbcli
 ```
 $ tbnbcli keys add owner --recover
