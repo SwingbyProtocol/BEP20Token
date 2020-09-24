@@ -1,13 +1,14 @@
 const Token = artifacts.require("Token");
-const tokenManager = artifacts.require("ITokenManager");
-// The Address of token manager 
+// The Address of token manager contract
 const tokenManagerConctractAddr = "0x0000000000000000000000000000000000001008"
+const BN = web3.utils.BN;
 
 module.exports = async function () {
    try {
       const token = await Token.deployed()
-      const tm = await tokenManager.at(tokenManagerConctractAddr)
-      await tm.approveBind(token.address, "SWINGBY-888")
+
+      let amount = web3.utils.toWei(new BN(process.env.AMOUNT), 'wei')
+      await token.approve(tokenManagerConctractAddr, amount)
    } catch (err) {
       console.log(err)
    }

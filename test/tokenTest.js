@@ -70,28 +70,28 @@ contract('Token', async (accounts) => {
     //         assert.isObject(err, "passed")
     //     });
     // })
-    it('token mint', async () => {
-        let token = await Token.new()
-        let mintValue = web3.utils.toWei(new BN('1000000000'), 'ether')
-        let from = accounts[0];
-        let amount = web3.utils.toWei(new BN('20'), 'ether')
+    // it('token mint', async () => {
+    //     let token = await Token.new()
+    //     let mintValue = web3.utils.toWei(new BN('1000000000'), 'ether')
+    //     let from = accounts[0];
+    //     let amount = web3.utils.toWei(new BN('20'), 'ether')
 
-        let balanceFrom = await token.balanceOf(from);
+    //     let balanceFrom = await token.balanceOf(from);
 
-        assert.equal(balanceFrom.toString(), mintValue.toString());
+    //     assert.equal(balanceFrom.toString(), mintValue.toString());
 
-        await token.mint(amount, {
-            from: from
-        })
+    //     await token.mint(amount, {
+    //         from: from
+    //     })
 
-        await token.mint(amount, {
-            from: accounts[2]
-        }).catch((err) => {
-            assert.notEqual(err, null)
-        });
+    //     await token.mint(amount, {
+    //         from: accounts[2]
+    //     }).catch((err) => {
+    //         assert.notEqual(err, null)
+    //     });
 
-        let updateBalanceFrom = await token.balanceOf(from);
+    //     let updateBalanceFrom = await token.balanceOf(from);
 
-        assert.equal(balanceFrom.add(amount).toString(), updateBalanceFrom.toString());
-    });
+    //     assert.equal(balanceFrom.add(amount).toString(), updateBalanceFrom.toString());
+    // });
 })
