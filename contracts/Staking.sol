@@ -168,12 +168,7 @@ contract Staking is IERC900 {
         pure
         returns (bytes memory)
     {
-        bytes memory result = new bytes(32+data.length);
-        assembly {
-            mstore(add(result, 32), stakeID)
-            mstore(add(result, 64), data)
-        }
-        return result;
+        return abi.encodePacked(stakeID, data);
     }
 
     function decodeBytes32ToUint256(bytes memory _data)
