@@ -75,7 +75,7 @@ contract Staking is IERC900 {
      * @param _data bytes optional data to include in the Unstake event
      */
     function unstake(uint256 _amount, bytes memory _data) public {
-        _unstake(_amount, _data);
+        _unstake(msg.sender, _amount, _data);
     }
 
     /**
@@ -137,7 +137,11 @@ contract Staking is IERC900 {
         );
     }
 
-    function _unstake(uint256 _amount, bytes memory _data) internal {
+    function _unstake(
+        address _address,
+        uint256 _amount,
+        bytes memory _data
+    ) internal {
         uint256 stakeID = decodeBytes32ToUint256(_data);
         Stake memory target = stakes[stakeID];
         // The target amount should be same as input amount.
@@ -146,11 +150,17 @@ contract Staking is IERC900 {
             "The unstake amount does not match the target amount"
         );
         require(
-            stakingToken.transfer(msg.sender, _amount),
+            target.stakedFor == _address,
+            "The address does not match the target address"
+        );
+        require(
+            stakingToken.transfer(target.stakedFor, _amount),
             "Unable to withdraw stake"
         );
         // Reduced staking amount of current staker.
-        stakingFor[msg.sender] = stakingFor[msg.sender].sub(_amount);
+        stakingFor[target.stakedFor] = stakingFor[target.stakedFor].sub(
+            _amount
+        );
         // Removed a stake and gas is refunded.
         delete (stakes[stakeID]);
         // Unstaked event. the logger needs to decode event to time on client side.
