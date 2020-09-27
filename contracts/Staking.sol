@@ -41,6 +41,7 @@ contract Staking is IERC900 {
      */
     constructor(IBEP20 _stakingToken) public {
         stakingToken = _stakingToken;
+        index = 0;
     }
 
     /**
@@ -115,18 +116,17 @@ contract Staking is IERC900 {
      * @dev Helper function to create stakes for a given address
      * @param _address address The address the stake is being created for
      * @param _amount uint256 The number of tokens being staked
-     * @param _data bytes optional data to include in the Stake event. We are using for locktime period for each staking.
+     * @param _data bytes optional data to include in the Stake event. We are using for locktime period for each stake.
      */
     function _stake(
         address _address,
         uint256 _amount,
         bytes memory _data
-    ) internal canStake(msg.sender, _amount) {
+    ) internal canStake(_address, _amount) {
         uint256 expiry = decodeBytes32ToUint256(_data);
         // TODO: validate timestamp
         stakes[index] = Stake(expiry, _amount, _address);
-        index++;
-        stakingFor[msg.sender] = stakingFor[msg.sender].add(_amount);
+        stakingFor[_address] = stakingFor[_address].add(_amount);
         // Staked event. the logger needs to decode event to time on client side.
         // Data == 0x + index + _data
         emit Staked(
@@ -135,6 +135,7 @@ contract Staking is IERC900 {
             totalStakedFor(_address),
             joinLogData(index, _data)
         );
+        index++;
     }
 
     function _unstake(
@@ -152,6 +153,10 @@ contract Staking is IERC900 {
         require(
             target.stakedFor == _address,
             "The address does not match the target address"
+        );
+        require(
+            block.timestamp >= target.expiry,
+            "The target stake is not expired"
         );
         require(
             stakingToken.transfer(target.stakedFor, _amount),
@@ -189,7 +194,7 @@ contract Staking is IERC900 {
         require(_data.length == 32, "slicing out of range");
         uint256 num;
         assembly {
-            num := mload(add(_data, 0))
+            num := mload(add(_data, 32))
         }
         return num;
     }
