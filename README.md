@@ -26,9 +26,9 @@ $ tbnbcli token issue --symbol TEST-999 --token-name "TEST token" --total-supply
 ```
 ### Step 3. BEP-20 token issue 
 See the above command.
-You have to check the following things before deploy BEP-20 token.
-- token symbol should have to same (without prefix)
-- total supply should be same as BEP-2 token supply
+You have to check the following things before deploy token.
+- Token symbol should have to same (if the BEP-2 token name is `SWINGBY-888`, symbol should be `SWINGBY`)
+- Total supply should be same as BEP-2 token supply
 - It may be better for tokens to disable the `mint` fucntion.
 
 ### Step 4. Make a binding tx for BC 
