@@ -5,16 +5,25 @@ import "./IBEP20.sol";
 import "./Ownable.sol";
 import "./SafeMath.sol";
 
-contract BEP20 is Context, IBEP20, Ownable {
+contract BEP20Token is Context, IBEP20, Ownable {
     using SafeMath for uint256;
 
     mapping(address => uint256) private _balances;
+
     mapping(address => mapping(address => uint256)) private _allowances;
 
     uint256 private _totalSupply;
-    uint8 public _decimals;
-    string public _symbol;
-    string public _name;
+    uint8 private _decimals;
+    string private _symbol;
+    string private _name;
+
+    constructor() public {
+        _name = "SWINGBY TEST Token";
+        _symbol = "SWINGBY";
+        _decimals = 18;
+        uint256 totalSupply = 1 * 10**9 * 10**18; // 1B tokens with decimals = 18
+        _mint(_msgSender(), totalSupply);
+    }
 
     /**
      * @dev Returns the bep token owner.
@@ -187,10 +196,10 @@ contract BEP20 is Context, IBEP20, Ownable {
      *
      * - `msg.sender` must be the token owner
      */
-    // function mint(uint256 amount) public onlyOwner returns (bool) {
-    //     _mint(_msgSender(), amount);
-    //     return true;
-    // }
+    function mint(uint256 amount) public onlyOwner returns (bool) {
+        _mint(_msgSender(), amount);
+        return true;
+    }
 
     /**
      * @dev Moves tokens `amount` from `sender` to `recipient`.

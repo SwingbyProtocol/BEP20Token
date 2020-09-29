@@ -1,4 +1,4 @@
-const Token = artifacts.require('Token');
+const BEP20Token = artifacts.require('BEP20Token');
 const Staking = artifacts.require('Staking');
 
 const BN = web3.utils.BN;
@@ -6,7 +6,7 @@ const BN = web3.utils.BN;
 contract('Staking', async (accounts) => {
     it('Token issue and Staking test', async () => {
         try {
-            let token = await Token.new()
+            let token = await BEP20Token.new()
             let mintValue = web3.utils.toWei(new BN('1000000000'), 'ether')
             let from = accounts[0];
             let to = accounts[1];
