@@ -1,7 +1,9 @@
 pragma solidity 0.5.16;
 
-import "./BEP20Token.sol";
+import "./MultiSendableToken.sol";
 
-contract Token is BEP20Token("TEST Token", "TEST", 18, 1 * 10**9 * 10**18) {
-    constructor() public {}
+contract Token is MultiSendableToken {
+    constructor() public {
+        init("TEST token", "TEST", 18, 1 * 10**9 * 10**18);
+    }
 }
