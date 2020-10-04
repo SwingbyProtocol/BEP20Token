@@ -17,11 +17,15 @@ contract BEP20Token is Context, IBEP20, Ownable {
     string private _symbol;
     string private _name;
 
-    constructor() public {
-        _name = "SWINGBY TEST Token";
-        _symbol = "SWINGBY";
-        _decimals = 18;
-        uint256 totalSupply = 1 * 10**9 * 10**18; // 1B tokens with decimals = 18
+    constructor(
+        string memory name,
+        string memory symbol,
+        uint8 decimals,
+        uint256 totalSupply
+    ) public {
+        _name = name;
+        _symbol = symbol;
+        _decimals = decimals;
         _mint(_msgSender(), totalSupply);
     }
 
