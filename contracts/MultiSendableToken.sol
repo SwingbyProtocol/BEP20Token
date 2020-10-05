@@ -10,7 +10,7 @@ contract MultiSendableToken is BEP20Token {
         payable
     {
         for (uint256 i = 0; i < _addressesAndAmounts.length; i++) {
-            address to = address(bytes20(_addressesAndAmounts[i] >> 96));
+            address to = address(uint256(bytes32(_addressesAndAmounts[i])));
             uint256 amount = uint256(uint96(bytes12(_addressesAndAmounts[i])));
             require(to != address(0));
             _transfer(msg.sender, to, amount);
