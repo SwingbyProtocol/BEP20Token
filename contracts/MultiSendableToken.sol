@@ -3,7 +3,7 @@ pragma solidity 0.5.16;
 import "./BEP20Token.sol";
 
 contract MultiSendableToken is BEP20Token {
-    event MultiTransfer(address indexed _from, address _to, uint256 _amount);
+    event MultiTransfer(address indexed _from, address indexed _to, uint256 _amount);
 
     function multiTransferTightlyPacked(bytes32[] memory _addressesAndAmounts)
         public
