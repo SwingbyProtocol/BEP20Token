@@ -43,8 +43,9 @@ contract('Token', async (accounts) => {
         let send1 = "0x" + web3.utils.padLeft(amount.toString('hex') + to.slice(2), 64)
 
         let send2 = "0x" + web3.utils.padLeft(amount.toString('hex') + to2.slice(2), 64)
+        // 0x00000001158e460913d00000943Bef1Fb2F25C43Ab4a010ae835E936d1A34fE1
 
-        //console.log(send1)
+        // console.log(send1)
 
         const txs = [
             send1, send2
@@ -54,7 +55,7 @@ contract('Token', async (accounts) => {
             from: from
         });
 
-        //console.log(logs.logs)
+        // console.log(logs.logs)
 
         let updateBalanceFrom = await token.balanceOf(from);
         let updateBalanceTo = await token.balanceOf(to);
