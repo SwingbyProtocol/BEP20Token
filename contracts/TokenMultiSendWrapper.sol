@@ -10,7 +10,7 @@ contract TokenMultiSendWrapper is MultiSendableToken {
     IBEP20 public token;
 
     constructor(IBEP20 _token) public {
-        init("TEST wrappper token", "TEST", 18, 1 * 10**9 * 10**18);
+        init("TEST wrappper token", "TEST", 18, 0);
         token = IBEP20(_token);
     }
 
