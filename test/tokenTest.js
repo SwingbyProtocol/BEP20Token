@@ -1,9 +1,9 @@
-const BEP20Token = artifacts.require('BEP20Token');
+const Token = artifacts.require('Token');
 const BN = web3.utils.BN;
 
 contract('Token', async (accounts) => {
     it('transfer', async () => {
-        let token = await BEP20Token.new()
+        let token = await Token.new()
         let mintValue = web3.utils.toWei(new BN('1000000000'), 'ether')
         let from = accounts[0];
         let to = accounts[1];
