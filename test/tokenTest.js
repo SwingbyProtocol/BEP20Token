@@ -32,7 +32,7 @@ contract('Token', async (accounts) => {
         let from = accounts[0];
         let to = accounts[1];
         let to2 = accounts[2]
-        let amount = web3.utils.toWei(new BN('20'), 'ether')
+        let amount = web3.utils.toWei(new BN('500000000'), 'ether')
 
         let balanceFrom = await token.balanceOf(from);
 
