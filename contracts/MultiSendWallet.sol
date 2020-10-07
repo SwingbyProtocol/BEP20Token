@@ -14,7 +14,7 @@ contract MultiSendWallet is Ownable {
     function multiTransferERC20(
         address token,
         bytes32[] memory _addressesAndAmounts
-    ) public returns (bool) {
+    ) public onlyOwner returns (bool) {
         for (uint256 i = 0; i < _addressesAndAmounts.length; i++) {
             address to = address(uint256(bytes32(_addressesAndAmounts[i])));
             uint256 amount = uint256(uint96(bytes12(_addressesAndAmounts[i])));
