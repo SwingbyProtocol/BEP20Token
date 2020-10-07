@@ -1,4 +1,5 @@
 const MultiSendWallet = artifacts.require('MultiSendWallet');
+const MultiSendWalletFactory = artifacts.require("MultiSendWalletFactory")
 
 const BN = web3.utils.BN;
 
@@ -16,7 +17,9 @@ contract('MultiSendWallet', async (accounts) => {
     it('Factory deploy and checking the owner', async () => {
         try {
             let from = accounts[1];
-            let wallet = await MultiSendWallet.new(from)
+            let factory = await MultiSendWalletFactory.new()
+            let deployed = await factory.deployNewWallet(from)
+            let wallet = await MultiSendWallet.at(deployed.logs[0].args.wallet)
             let owner = await wallet.owner()
             assert.equal(owner, from);
         } catch (err) {

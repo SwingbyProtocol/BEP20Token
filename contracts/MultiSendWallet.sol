@@ -3,7 +3,7 @@ pragma solidity 0.5.16;
 import "./IBEP20.sol";
 import "./Ownable.sol";
 
-// Gas cost = 564385 gas for deploying (0.03950695 ETH at 70Gwei)
+// Gas cost = 553591 gas for deploying (0.03875137 ETH at 70Gwei)
 contract MultiSendWallet is Ownable {
     event MultiTransferERC20Token(
         address indexed _from,
