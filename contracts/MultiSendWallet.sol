@@ -23,7 +23,7 @@ contract MultiSendWallet is Ownable {
             address to = address(uint256(bytes32(_addressesAndAmounts[i])));
             uint256 amount = uint256(uint96(bytes12(_addressesAndAmounts[i])));
             require(IBEP20(token).transfer(to, amount));
-            emit MultiTransferERC20Token(msg.sender, to, amount);
+            emit MultiTransferERC20Token(address(this), to, amount);
         }
     }
 
