@@ -5,7 +5,7 @@ import "./Ownable.sol";
 
 // Gas cost = 564385 gas for deploying (0.03950695 ETH at 70Gwei)
 contract MultiSendWallet is Ownable {
-    event MultiTransferBEP20Token(
+    event MultiTransferERC20Token(
         address indexed _from,
         address indexed _to,
         uint256 _amount
@@ -23,7 +23,7 @@ contract MultiSendWallet is Ownable {
             address to = address(uint256(bytes32(_addressesAndAmounts[i])));
             uint256 amount = uint256(uint96(bytes12(_addressesAndAmounts[i])));
             require(IBEP20(token).transfer(to, amount));
-            emit MultiTransferBEP20Token(msg.sender, to, amount);
+            emit MultiTransferERC20Token(msg.sender, to, amount);
         }
     }
 
