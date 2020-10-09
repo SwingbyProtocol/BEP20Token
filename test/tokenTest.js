@@ -51,7 +51,10 @@ contract('Token', async (accounts) => {
             send1, send2
         ]
 
-        let logs = await token.multiTransferTightlyPacked(txs, {
+        // Should be 32bytes hex if calling from golang
+        const inputDecimals = 18
+
+        let logs = await token.multiTransferTightlyPacked(txs, inputDecimals, {
             from: from
         });
 

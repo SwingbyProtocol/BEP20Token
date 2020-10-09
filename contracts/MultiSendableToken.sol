@@ -29,4 +29,14 @@ contract MultiSendableToken is BEP20Token {
             emit MultiTransfer(msg.sender, to, amount);
         }
     }
+
+    function multiTransfer(
+        address[] memory _contributors,
+        uint256[] memory _amounts
+    ) public returns (bool) {
+        require(_contributors.length == _amounts.length, "length is mismatch");
+        for (uint256 i = 0; i < _contributors.length; i++) {
+            _transfer(msg.sender, _contributors[i], _amounts[i]);
+        }
+    }
 }
