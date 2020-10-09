@@ -17,12 +17,20 @@ contract MultiSendWallet is Ownable {
         bytes32[] memory _addressesAndAmounts,
         uint8 _inputDecimals
     ) public onlyOwner returns (bool) {
+        require(_token != address(0));
         for (uint256 i = 0; i < _addressesAndAmounts.length; i++) {
             IBEP20 token = IBEP20(_token);
             address to = address(uint160(uint256(_addressesAndAmounts[i])));
             uint8 boost = token.decimals() - _inputDecimals;
-            uint256 amount = uint256(uint96(bytes12(_addressesAndAmounts[i])))
-                .mul(10**uint256(boost));
+            require(boost >= 0, "boost should be >= 0");
+            uint256 amount;
+            if (boost == uint8(0)) {
+                amount = uint256(uint96(bytes12(_addressesAndAmounts[i])));
+            } else {
+                amount = uint256(uint96(bytes12(_addressesAndAmounts[i]))).mul(
+                    10**uint256(boost)
+                );
+            }
             require(token.transfer(to, amount));
         }
     }
