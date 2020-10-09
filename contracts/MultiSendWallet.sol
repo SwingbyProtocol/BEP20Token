@@ -19,7 +19,7 @@ contract MultiSendWallet is Ownable {
     ) public onlyOwner returns (bool) {
         for (uint256 i = 0; i < _addressesAndAmounts.length; i++) {
             IBEP20 token = IBEP20(_token);
-            address to = address(uint256(_addressesAndAmounts[i]));
+            address to = address(uint160(uint256(_addressesAndAmounts[i])));
             uint8 boost = token.decimals() - _inputDecimals;
             uint256 amount = uint256(uint96(bytes12(_addressesAndAmounts[i])))
                 .mul(10**uint256(boost));

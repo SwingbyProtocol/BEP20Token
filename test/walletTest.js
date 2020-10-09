@@ -27,7 +27,7 @@ contract('MultiSendWallet', async (accounts) => {
             console.log(err)
         }
     });
-    it('multi transfer', async () => {
+    it('multi transfer (multiTransferERC20TightlyPacked)', async () => {
         try {
             let token = await Token.new()
             // Defaut token decimals == 18
@@ -81,7 +81,6 @@ contract('MultiSendWallet', async (accounts) => {
         } catch (err) {
             console.log(err)
         }
-
     });
 
 })
