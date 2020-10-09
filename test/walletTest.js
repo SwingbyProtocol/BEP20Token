@@ -68,7 +68,7 @@ contract('MultiSendWallet', async (accounts) => {
                 from: from
             });
 
-            // console.log(logs.logs)
+            //console.log(logs)
 
             let updateBalanceWallet = await token.balanceOf(wallet.address);
             let updateBalanceTo = await token.balanceOf(to);
