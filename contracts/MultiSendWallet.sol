@@ -27,7 +27,7 @@ contract MultiSendWallet is Ownable {
         }
     }
 
-    // Ether refund
+    // The contract doesn't allow receiving Ether.
     function() external {
         revert();
     }

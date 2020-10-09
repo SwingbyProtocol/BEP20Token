@@ -10,4 +10,9 @@ contract MultiSendWalletFactory {
         emit Deployed(address(wallet));
         return address(wallet);
     }
+
+    // The contract doesn't allow receiving Ether.
+    function() external {
+        revert();
+    }
 }
