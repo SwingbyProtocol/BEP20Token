@@ -4,7 +4,7 @@ pragma solidity 0.5.16;
  * @title ERC900 Simple Staking Interface
  * @dev See https://github.com/ethereum/EIPs/blob/master/EIPS/eip-900.md
  */
- 
+
 contract IERC900 {
     event Staked(
         address indexed user,

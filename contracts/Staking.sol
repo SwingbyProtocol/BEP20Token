@@ -6,18 +6,24 @@ import "./IERC900.sol";
 
 contract Staking is IERC900 {
     using SafeMath for uint256;
-
     // Token used for staking
     IBEP20 stakingToken;
 
     uint256 public index;
-    mapping(uint256 => Stake) public stakes;
-    mapping(address => uint256) stakingFor;
+    mapping(uint256 => Stake) private stakes;
+    mapping(address => uint256) private stakingFor;
+    // Set node info
+    mapping(address => P2PInfo) private nodes;
 
     struct Stake {
         uint256 expiry;
         uint256 amount;
         address stakedFor;
+    }
+
+    struct P2PInfo {
+        bytes32 pubkey;
+        address rewardAddress;
     }
 
     /**
@@ -113,6 +119,14 @@ contract Staking is IERC900 {
      */
 
     /**
+     * @param _addr The address of validator set
+     */
+    function getNodeInfo(address _addr) public view returns (bytes32, address) {
+        P2PInfo memory info = nodes[_addr];
+        return (info.pubkey, info.rewardAddress);
+    }
+
+    /**
      * @dev Helper function to create stakes for a given address
      * @param _address address The address the stake is being created for
      * @param _amount uint256 The number of tokens being staked
@@ -123,10 +137,16 @@ contract Staking is IERC900 {
         uint256 _amount,
         bytes memory _data
     ) internal canStake(_address, _amount) {
-        uint256 expiry = decodeBytes32ToUint256(_data);
+        (uint256 expiry, bytes32 pubkey, address rewardAddress) = decodeBytes(
+            _data
+        );
         // TODO: validate timestamp
         stakes[index] = Stake(expiry, _amount, _address);
         stakingFor[_address] = stakingFor[_address].add(_amount);
+
+        // Update node info
+        nodes[_address] = P2PInfo(pubkey, rewardAddress);
+
         // Staked event. the logger needs to decode event to time on client side.
         // Data == 0x + index + _data
         emit Staked(
@@ -143,7 +163,7 @@ contract Staking is IERC900 {
         uint256 _amount,
         bytes memory _data
     ) internal {
-        uint256 stakeID = decodeBytes32ToUint256(_data);
+        (uint256 stakeID, , ) = decodeBytes(_data);
         Stake memory target = stakes[stakeID];
         // The target amount should be same as input amount.
         require(
@@ -186,16 +206,24 @@ contract Staking is IERC900 {
         return abi.encodePacked(stakeID, data);
     }
 
-    function decodeBytes32ToUint256(bytes memory _data)
+    function decodeBytes(bytes memory _data)
         internal
         pure
-        returns (uint256)
+        returns (
+            uint256,
+            bytes32,
+            address
+        )
     {
-        require(_data.length == 32, "slicing out of range");
-        uint256 num;
+        require(_data.length.mod(32) == 0, "slicing out of range");
+        uint256 expiry;
+        bytes32 pubkey;
+        address rewardAddress;
         assembly {
-            num := mload(add(_data, 32))
+            expiry := mload(add(_data, 32))
+            pubkey := mload(add(_data, 64))
+            rewardAddress := mload(add(_data, 96))
         }
-        return num;
+        return (expiry, pubkey, rewardAddress);
     }
 }

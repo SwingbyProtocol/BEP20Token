@@ -35,9 +35,21 @@ contract('Staking', async (accounts) => {
             });
             let timeHex = web3.utils.toHex(Math.floor(Date.now() / 1000))
             let timeHex32 = web3.utils.padLeft(timeHex, 64)
+            let pubkeyHex32 = web3.utils.padLeft("0xc4b50e91d77878cefcb8467694503c5f9a74d49b0077316f327786c3abdfdc75", 64)
+            let addressHex32 = web3.utils.padLeft(accounts[1], 64)
+            let data = timeHex32 + pubkeyHex32.slice(2) + addressHex32.slice(2)
+            // 0x000000000000000000000000000000000000000000000000000000005f846a50c4b50e91d77878cefcb8467694503c5f9a74d49b0077316f327786c3abdfdc75000000000000000000000000943Bef1Fb2F25C43Ab4a010ae835E936d1A34fE1
 
-            await stake.stake(amountToStake, timeHex32, { from: from })
+            //console.log(data)
 
+            await stake.stake(amountToStake, data, { from: from })
+
+            let nodeInfo = await stake.getNodeInfo(from)
+            /**
+             * Result {  '0': '0xc4b50e91d77878cefcb8467694503c5f9a74d49b0077316f327786c3abdfdc75', '1': '0x943Bef1Fb2F25C43Ab4a010ae835E936d1A34fE1'}
+             */
+
+            // console.log(nodeInfo)
             let StakedBalance = await stake.totalStakedFor(from);
             assert.equal(amountToStake.toString(), StakedBalance.toString());
 
