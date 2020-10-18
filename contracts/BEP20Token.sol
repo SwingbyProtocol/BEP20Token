@@ -17,12 +17,12 @@ contract BEP20Token is Context, IBEP20, Ownable {
     string private _symbol;
     string private _name;
 
-    function init(
+    function _init(
         string memory name,
         string memory symbol,
         uint8 decimals,
         uint256 totalSupply
-    ) public {
+    ) internal {
         _name = name;
         _symbol = symbol;
         _decimals = decimals;

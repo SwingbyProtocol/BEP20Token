@@ -4,6 +4,6 @@ import "./MultiSendableToken.sol";
 
 contract Token is MultiSendableToken {
     constructor() public {
-        init("TEST token", "TESTONQ", 18, 1 * 10**9 * 10**18);
+        _init("TEST token", "TESTONE", 18, 1 * 10**9 * 10**18);
     }
 }
