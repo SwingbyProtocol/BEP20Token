@@ -46,10 +46,10 @@ contract('Staking', async (accounts) => {
 
             let nodeInfo = await stake.getNodeInfo(from)
             /**
-             * Result {  '0': '0xc4b50e91d77878cefcb8467694503c5f9a74d49b0077316f327786c3abdfdc75', '1': '0x943Bef1Fb2F25C43Ab4a010ae835E936d1A34fE1'}
+             * Result {  '0': '0xc4b50e91d77878cefcb8467694503c5f9a74d49b0077316f327786c3abdfdc75', '1': '0x00000000000000000000000007385da2f4ebe2d2a6f837f3719952ea580301f5'}
              */
 
-            // console.log(nodeInfo)
+            //console.log(nodeInfo)
             let StakedBalance = await stake.totalStakedFor(from);
             assert.equal(amountToStake.toString(), StakedBalance.toString());
 
