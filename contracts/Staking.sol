@@ -23,7 +23,7 @@ contract Staking is IERC900 {
 
     struct P2PInfo {
         bytes32 pubkey;
-        address rewardAddress;
+        bytes32 rewardAddress;
     }
 
     /**
@@ -121,7 +121,7 @@ contract Staking is IERC900 {
     /**
      * @param _addr The address of validator set
      */
-    function getNodeInfo(address _addr) public view returns (bytes32, address) {
+    function getNodeInfo(address _addr) public view returns (bytes32, bytes32) {
         P2PInfo memory info = nodes[_addr];
         return (info.pubkey, info.rewardAddress);
     }
@@ -137,7 +137,7 @@ contract Staking is IERC900 {
         uint256 _amount,
         bytes memory _data
     ) internal canStake(_address, _amount) {
-        (uint256 expiry, bytes32 pubkey, address rewardAddress) = decodeBytes(
+        (uint256 expiry, bytes32 pubkey, bytes32 rewardAddress) = decodeBytes(
             _data
         );
         // TODO: validate timestamp
@@ -212,13 +212,13 @@ contract Staking is IERC900 {
         returns (
             uint256,
             bytes32,
-            address
+            bytes32
         )
     {
         require(_data.length.mod(32) == 0, "slicing out of range");
         uint256 expiry;
         bytes32 pubkey;
-        address rewardAddress;
+        bytes32 rewardAddress;
         assembly {
             expiry := mload(add(_data, 32))
             pubkey := mload(add(_data, 64))

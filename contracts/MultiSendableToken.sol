@@ -9,6 +9,10 @@ contract MultiSendableToken is BEP20Token {
         uint256 _amount
     );
 
+    constructor() public {
+        _initialize("TEST token", "TESTONE", 18, 1 * 10**9 * 10**18, false);
+    }
+
     function multiTransferTightlyPacked(
         bytes32[] memory _addressesAndAmounts,
         uint8 _inputDecimals

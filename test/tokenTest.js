@@ -1,4 +1,5 @@
 const Token = artifacts.require('Token');
+const MultiSendableToken = artifacts.require("MultiSendableToken")
 const BN = web3.utils.BN;
 
 contract('Token', async (accounts) => {
@@ -27,7 +28,7 @@ contract('Token', async (accounts) => {
     });
 
     it('multi transfer', async () => {
-        let token = await Token.new()
+        let token = await MultiSendableToken.new()
         let mintValue = web3.utils.toWei(new BN('1000000000'), 'ether')
         let from = accounts[0];
         let to = accounts[1];

@@ -1,39 +1,44 @@
 pragma solidity 0.5.16;
 
-import "./Context.sol";
 import "./IBEP20.sol";
-import "./Ownable.sol";
+import "./Context.sol";
 import "./SafeMath.sol";
+import "./Ownable.sol";
 
 contract BEP20Token is Context, IBEP20, Ownable {
     using SafeMath for uint256;
 
     mapping(address => uint256) private _balances;
-
     mapping(address => mapping(address => uint256)) private _allowances;
-
     uint256 private _totalSupply;
-    uint8 private _decimals;
-    string private _symbol;
     string private _name;
+    string private _symbol;
+    uint8 private _decimals;
 
-    function _init(
+    bool private _mintable;
+
+    /**
+     * @dev sets initials supply and the owner
+     */
+    function _initialize(
         string memory name,
         string memory symbol,
         uint8 decimals,
-        uint256 totalSupply
+        uint256 amount,
+        bool mintable
     ) internal {
         _name = name;
         _symbol = symbol;
         _decimals = decimals;
-        _mint(_msgSender(), totalSupply);
+        _mintable = mintable;
+        _mint(owner(), amount);
     }
 
     /**
-     * @dev Returns the bep token owner.
+     * @dev Returns if the token is mintable or not
      */
-    function getOwner() external view returns (address) {
-        return owner();
+    function mintable() external view returns (bool) {
+        return _mintable;
     }
 
     /**
@@ -55,6 +60,14 @@ contract BEP20Token is Context, IBEP20, Ownable {
      */
     function name() external view returns (string memory) {
         return _name;
+    }
+
+    /**
+     * @dev Returns the bep token owner.
+     */
+
+    function getOwner() external view returns (address) {
+        return owner();
     }
 
     /**
@@ -199,12 +212,21 @@ contract BEP20Token is Context, IBEP20, Ownable {
      * Requirements
      *
      * - `msg.sender` must be the token owner
+     * - `_mintable` must be true
      */
+    function mint(uint256 amount) public onlyOwner returns (bool) {
+        require(_mintable, "this token is not mintable");
+        _mint(_msgSender(), amount);
+        return true;
+    }
 
-    // function mint(uint256 amount) public onlyOwner returns (bool) {
-    //     _mint(_msgSender(), amount);
-    //     return true;
-    // }
+    /**
+     * @dev Burn `amount` tokens and decreasing the total supply.
+     */
+    function burn(uint256 amount) public returns (bool) {
+        _burn(_msgSender(), amount);
+        return true;
+    }
 
     /**
      * @dev Moves tokens `amount` from `sender` to `recipient`.

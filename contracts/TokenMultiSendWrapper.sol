@@ -9,11 +9,6 @@ contract TokenMultiSendWrapper is MultiSendableToken {
     // Define token address for wrapping.
     IBEP20 public token;
 
-    constructor(IBEP20 _token) public {
-        init("TEST wrappper token", "WTEST", 18, 0);
-        token = IBEP20(_token);
-    }
-
     function deposit(uint256 _amount) public returns (bool) {
         require(
             token.transferFrom(msg.sender, address(this), _amount),
