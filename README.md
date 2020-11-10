@@ -56,7 +56,7 @@ $ tbnbcli bridge transfer-out --to <your bsc address> --expire-time <expiry time
 
 ## TransferOut BC from BSC (100 TESTONE-A43 tokens will be tranfered to BC address)
 ```
-$ AMOUNT=<your amount / 1e18 e.g. 0.1> TO=<your receiving address> truffle exec scripts/transferOutToBC.js --network bsc_testnet
+$ AMOUNT=<your amount e.g. if decimals == 18, should be set 100> TO=<your receiving address on target chain> truffle exec scripts/transferOutToBC.js --network bsc_testnet
 ```
 
 ## Test
