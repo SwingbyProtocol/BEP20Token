@@ -8,8 +8,8 @@ module.exports = async function (done) {
    try {
       const token = await Token.deployed()
       const tm = await tokenManager.at(tokenManagerConctractAddr)
-      miniRelayFee = "0.01"
-      let value = web3.utils.toWei(miniRelayFee, 'ether')
+      minRelayFee = "0.01"
+      let value = web3.utils.toWei(minRelayFee, 'ether')
       let result = await tm.approveBind(token.address, process.env.SYMBOL, {
          value: value
       })

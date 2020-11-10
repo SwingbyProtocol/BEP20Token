@@ -14,7 +14,6 @@ contract BEP20Token is Context, IBEP20, Ownable {
     string private _name;
     string private _symbol;
     uint8 private _decimals;
-
     bool private _mintable;
 
     /**
