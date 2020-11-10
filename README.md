@@ -49,6 +49,16 @@ $ SEED=<your seed phrase> SYMBOL=TESTONE-A43 truffle exec scripts/bindTokenContr
 $ tbnbcli token info --symbol TESTONE-A43 --trust-node --node http://data-seed-pre-0-s3.binance.org:80
 ```
 
+## TrasnferOut BSC from BC
+```
+$ tbnbcli bridge transfer-out --to <your bsc address> --expire-time <expiry time e.g. 1603011072> --chain-id Binance-Chain-Ganges --from owner --amount 20000000000:TESTONE-A43 --node http://data-seed-pre-0-s3.binance.org:80
+```
+
+## TransferOut BC from BSC 
+```
+$ AMOUNT=<your amount / 1e18 e.g. 0.1> TO=<your receiving address> truffle exec scripts/transferOutToBC.js --network bsc_testnet
+```
+
 ## Test
 ```
 $ truffle test

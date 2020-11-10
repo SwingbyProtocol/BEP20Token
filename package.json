@@ -8,6 +8,7 @@
   },
   "dependencies": {
     "@truffle/hdwallet-provider": "^1.1.1",
+    "bech32-buffer": "^0.1.2",
     "web3": "^1.3.0"
   },
   "devDependencies": {},
