@@ -83,7 +83,7 @@ module.exports = {
     // Useful for deploying to a public network.
     // NB: It's important to wrap the provider as a function.
     bsc_testnet: {
-      provider: () => new HDWalletProvider(mnemonic, `https://data-seed-prebsc-1-s1.binance.org:8545`),
+      provider: () => new HDWalletProvider(mnemonic, `https://data-seed-prebsc-1-s1.binance.org:8545`, 0, 1, true, "m/44'/519'/0'/0/"),
       network_id: 97,      // BSC testnet id
       gas: 5500000,        // BSC testnet has a lower block limit than mainnet
       confirmations: 3,    // # of confs to wait between deployments. (default: 0)
@@ -91,7 +91,7 @@ module.exports = {
       skipDryRun: true     // Skip dry run before migrations? (default: false for public nets ) https://bsc-dataseed.binance.org/
     },
     bsc_mainnet: {
-      provider: () => new HDWalletProvider(mnemonic, `https://bsc-dataseed.binance.org`),
+      provider: () => new HDWalletProvider(mnemonic, `https://bsc-dataseed.binance.org`, 0, 1, true, "m/44'/519'/0'/0/"),
       network_id: 56,      // BSC testnet id
       gas: 5500000,        // BSC testnet has a lower block limit than mainnet
       confirmations: 3,    // # of confs to wait between deployments. (default: 0)
